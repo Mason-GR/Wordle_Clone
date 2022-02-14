@@ -1,6 +1,6 @@
-:root {
+/* :root {
   --bg-color: hsl(240, 3%, 7%);
-}
+} */
 
 *,
 *::after,
@@ -10,13 +10,16 @@
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: hsl(240, 3%, 7%);
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  min-height: 100vh;
+  margin: 0;
   padding: 1em;
   font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
 }
+
+/* KEYBOARD STYLING */
 
 .keyboard {
   display: grid;
@@ -63,4 +66,90 @@ body {
 
 .key.wrong {
   --lightness: 23%;
+}
+
+.key.wrong-location {
+  --hue: 49;
+  --saturation: 51%;
+  --lightness: 47%;
+}
+
+.key.correct {
+  --hue: 115;
+  --saturation: 29%;
+  --lightness: 43%;
+}
+
+/* GRID & TILES */
+
+.guess-grid {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  flex-grow: 1;
+  grid-template-columns: repeat(5, 4em);
+  grid-template-rows: repeat(6, 4em);
+  gap: 0.25em;
+  margin-bottom: 1em;
+}
+
+.tile {
+  font-size: 2em;
+  color: white;
+  border: 0.05em solid hsl(240, 2%, 23%);
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.tile[data-state="active"] {
+  border-color: hsl(200, 1%, 34%);
+}
+
+.tile[data-state="wrong"] {
+  border: none;
+  background-color: hsl(240, 2%, 23%);
+}
+
+.tile[data-state="wrong-location"] {
+  border: none;
+  background-color: hsl(49, 51%, 47%);
+}
+
+.tile[data-state="correct"] {
+  border: none;
+  background-color: hsl(115, 29%, 43%);
+}
+
+/* ALERT */
+
+.alert-container {
+  position: fixed;
+  top: 10vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alert {
+  pointer-events: none;
+  background-color: hsl(204, 7%, 85%);
+  padding: 0.75em;
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+  margin-bottom: 0.5em;
+}
+
+.alert:last-child {
+  margin-bottom: 0;
+}
+
+.alert.hide {
+  opacity: 0;
 }
