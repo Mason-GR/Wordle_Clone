@@ -19,6 +19,10 @@ body {
   font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
 }
 
+svg {
+  pointer-events: none;
+}
+
 /* KEYBOARD STYLING */
 
 .keyboard {

@@ -15301,6 +15301,7 @@ const offsetFromDate = new Date(2022, 0, 1);
 const msOffset = Date.now() - offsetFromDate;
 const dayOffset = msOffset / 1000 / 60 / 60 / 24;
 const targetWord = targetWords[Math.floor(dayOffset)];
+let temp = "";
 
 startInteraction();
 
@@ -15386,6 +15387,7 @@ function submitGuess() {
 
   stopInteraction();
   activeTiles.forEach((...params) => flipTile(...params, guess));
+  temp = "";
 }
 
 function flipTile(tile, index, array, guess) {
@@ -15399,12 +15401,19 @@ function flipTile(tile, index, array, guess) {
     "transitionend",
     () => {
       tile.classList.remove("flip");
-      if (targetWord[index] === letter) {
+      if (targetWord[index] == letter) {
+        temp += letter;
         tile.dataset.state = "correct";
         key.classList.add("correct");
       } else if (targetWord.includes(letter)) {
-        tile.dataset.state = "wrong-location";
-        key.classList.add("wrong-location");
+        if (temp.split(letter).length < targetWord.split(letter).length) {
+          tile.dataset.state = "wrong-location";
+          key.classList.add("wrong-location");
+          temp += letter;
+        } else {
+          tile.dataset.state = "wrong";
+          key.classList.add("wrong");
+        }
       } else {
         tile.dataset.state = "wrong";
         key.classList.add("wrong");
